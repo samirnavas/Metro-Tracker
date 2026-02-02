@@ -15,32 +15,20 @@ This repository contains the source code for the KMRL Metro Bus Tracking mobile 
 
 ## How to Run
 
-### 1. Start the Mock Backend
+### 1. Run the Flutter App (Web Recommended)
 
-The backend simulates live bus movements in Kochi.
+Since Visual Studio (for Windows) or Android SDK might not be installed, the easiest way to run the app is on **Chrome**.
 
-```bash
-cd backend
-npm install
-npm start
-```
+1. **Google Maps Key**: Open `web/index.html` and replace `YOUR_API_KEY` with your actual Google Maps API Key.
+2. **Run on Chrome**:
+   ```bash
+   cd metro_tracker_app
+   flutter run -d chrome
+   ```
 
-The WebSocket server will start on `ws://localhost:8080`.
+**Note**: We have switched to a **Local Mock Data Generator** (`MockLocalBusRepository`), so you **do not** need to run the Node.js backend anymore. The app generates its own bus data internally for demonstration.
 
-### 2. Run the Flutter App
-
-Ensure you have a connected device or emulator.
-
-**Important**: 
-- If running on Android Emulator, the app is configured to connect to `ws://10.0.2.2:8080` (localhost alias).
-- If running on iOS Simulator or real device, update the IP address in `lib/injection_container.dart`.
-- You need a Google Maps API Key for the map to render. Add it to `android/app/src/main/AndroidManifest.xml` and `ios/Runner/AppDelegate.swift`.
-
-```bash
-cd metro_tracker_app
-flutter pub get
-flutter run
-```
+*(Optional) If you have Visual Studio installed, you can run on Windows by selecting the Windows device.*
 
 ## Features Implemented
 
