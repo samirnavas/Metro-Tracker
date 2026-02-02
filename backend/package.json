@@ -4,9 +4,13 @@
   "description": "Mock GTFS-Realtime Backend for KMRL Metro Tracker",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "dependencies": {
     "ws": "^8.13.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
   }
 }
