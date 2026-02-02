@@ -8,7 +8,7 @@ final sl = GetIt.instance;
 
 Future<void> init() async {
   // Features - Bus Tracking
-  
+
   // Bloc
   sl.registerFactory(() => MapBloc(busRepository: sl()));
 
@@ -20,8 +20,12 @@ Future<void> init() async {
   // External
   // Connect to the mock backend we created (ws://localhost:8080)
   // Note: For Android Emulator use 'ws://10.0.2.2:8080'
-  // For iOS Simulator use 'ws://localhost:8080'
-  final wsUrl = Uri.parse('ws://10.0.2.2:8080'); // Defaulting to Android Emulator localhost
+  // For Android Physical Device, use your computer's local IP (e.g., 192.168.1.5)
+  // For iOS Simulator and Web use 'ws://localhost:8080'
+
+  // Using local IP for Android physical device connectivity
+  final wsUrl =
+      Uri.parse('ws://192.168.10.231:8080'); // Change to localhost for web
   sl.registerLazySingleton<WebSocketChannel>(
     () => WebSocketChannel.connect(wsUrl),
   );
