@@ -15,7 +15,8 @@ dependencies:
   equatable: ^2.0.5
   
   # Maps & Location
-  google_maps_flutter: ^2.5.0
+  flutter_map: ^7.0.0
+  latlong2: ^0.9.1
   geolocator: ^10.1.0
   
   # Networking
