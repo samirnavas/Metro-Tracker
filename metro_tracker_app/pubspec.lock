@@ -73,9 +73,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.8"
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
   dart_earcut:
     dependency: transitive
     description:
@@ -84,7 +81,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
->>>>>>> 8d73dbfac72d18a17899f5a400fa2edf092001ef
   dbus:
     dependency: transitive
     description:
@@ -93,11 +89,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.11"
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 9b040dcf2cf97350f7da21bb943f73795f744148
->>>>>>> 8d73dbfac72d18a17899f5a400fa2edf092001ef
   equatable:
     dependency: "direct main"
     description:
@@ -151,66 +142,32 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.3"
-<<<<<<< HEAD
   flutter_local_notifications:
     dependency: "direct main"
     description:
       name: flutter_local_notifications
-      sha256: "401643a6ea9d8451365f2ec11145335bf130560cfde367bdf8f0be6d60f89479"
+      sha256: ef41ae901e7529e52934feba19ed82827b11baa67336829564aeab3129460610
       url: "https://pub.dev"
     source: hosted
-    version: "15.1.3"
+    version: "18.0.1"
   flutter_local_notifications_linux:
     dependency: transitive
     description:
       name: flutter_local_notifications_linux
-      sha256: c49bd06165cad9beeb79090b18cd1eb0296f4bf4b23b84426e37dd7c027fc3af
+      sha256: "8f685642876742c941b29c32030f6f4f6dacd0e4eaecb3efbb187d6a3812ca01"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.1"
+    version: "5.0.0"
   flutter_local_notifications_platform_interface:
     dependency: transitive
     description:
       name: flutter_local_notifications_platform_interface
-      sha256: "85f8d07fe708c1bdcf45037f2c0109753b26ae077e9d9e899d55971711a4ea66"
+      sha256: "6c5b83c86bf819cdb177a9247a3722067dd8cc6313827ce7c77a4b238a26fd52"
       url: "https://pub.dev"
     source: hosted
-    version: "7.2.0"
-  flutter_plugin_android_lifecycle:
-    dependency: transitive
-=======
-<<<<<<< HEAD
-  flutter_local_notifications:
-    dependency: "direct main"
->>>>>>> 8d73dbfac72d18a17899f5a400fa2edf092001ef
-    description:
-      name: flutter_local_notifications
-      sha256: "55b9b229307a10974b26296ff29f2e132256ba4bd74266939118eaefa941cb00"
-      url: "https://pub.dev"
-    source: hosted
-    version: "16.3.3"
-  flutter_local_notifications_linux:
-    dependency: transitive
-    description:
-      name: flutter_local_notifications_linux
-      sha256: c49bd06165cad9beeb79090b18cd1eb0296f4bf4b23b84426e37dd7c027fc3af
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.0.1"
-  flutter_local_notifications_platform_interface:
-    dependency: transitive
-    description:
-      name: flutter_local_notifications_platform_interface
-      sha256: "85f8d07fe708c1bdcf45037f2c0109753b26ae077e9d9e899d55971711a4ea66"
-      url: "https://pub.dev"
-    source: hosted
-    version: "7.2.0"
+    version: "8.0.0"
   flutter_map:
     dependency: "direct main"
-=======
-  flutter_plugin_android_lifecycle:
-    dependency: transitive
->>>>>>> 9b040dcf2cf97350f7da21bb943f73795f744148
     description:
       name: flutter_map
       sha256: "2ecb34619a4be19df6f40c2f8dce1591675b4eff7a6857bd8f533706977385da"
