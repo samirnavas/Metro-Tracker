@@ -4,6 +4,7 @@ const http = require('http');
 const database = require('./src/config/database');
 const WebSocketController = require('./src/controllers/websocketController');
 const simulationService = require('./src/services/simulationService');
+const apiRoutes = require('./src/routes/routes');
 
 const app = express();
 const server = http.createServer(app);
@@ -20,15 +21,8 @@ app.get('/health', (req, res) => {
     });
 });
 
-// API endpoint to get all routes
-app.get('/api/routes', async (req, res) => {
-    try {
-        const routes = await simulationService.getAllRoutes();
-        res.json({ success: true, data: routes });
-    } catch (error) {
-        res.status(500).json({ success: false, error: error.message });
-    }
-});
+// Mount API routes
+app.use('/api', apiRoutes);
 
 // API endpoint to get vehicle data
 app.get('/api/vehicles', async (req, res) => {
@@ -57,17 +51,46 @@ async function startServer() {
         // Start broadcasting vehicle updates via WebSocket
         wsController.startBroadcasting(1000); // Broadcast every 1 second
 
-        // Start HTTP server
+        // Start HTTP server on all network interfaces
         const PORT = process.env.PORT || 8080;
-        server.listen(PORT, () => {
+        const HOST = '0.0.0.0'; // Listen on all network interfaces
+
+        server.listen(PORT, HOST, () => {
+            // Get local network IP for physical device connections
+            const os = require('os');
+            const networkInterfaces = os.networkInterfaces();
+            let localIp = 'Unable to detect';
+
+            // Find the first non-internal IPv4 address
+            for (const interfaceName in networkInterfaces) {
+                for (const iface of networkInterfaces[interfaceName]) {
+                    if (iface.family === 'IPv4' && !iface.internal) {
+                        localIp = iface.address;
+                        break;
+                    }
+                }
+                if (localIp !== 'Unable to detect') break;
+            }
+
             console.log('\n✅ Server Ready!');
-            console.log('─────────────────────────────');
-            console.log(`HTTP Server: http://localhost:${PORT}`);
-            console.log(`WebSocket: ws://localhost:${PORT}`);
-            console.log(`Health Check: http://localhost:${PORT}/health`);
-            console.log(`Routes API: http://localhost:${PORT}/api/routes`);
-            console.log(`Vehicles API: http://localhost:${PORT}/api/vehicles`);
-            console.log('─────────────────────────────\n');
+            console.log('─────────────────────────────────────────────────');
+            console.log('📱 FOR PHYSICAL DEVICE:');
+            console.log(`   HTTP Server: http://${localIp}:${PORT}`);
+            console.log(`   WebSocket: ws://${localIp}:${PORT}`);
+            console.log(`   Health Check: http://${localIp}:${PORT}/health`);
+            console.log('');
+            console.log('💻 FOR LOCALHOST/WEB:');
+            console.log(`   HTTP Server: http://localhost:${PORT}`);
+            console.log(`   WebSocket: ws://localhost:${PORT}`);
+            console.log(`   Health Check: http://localhost:${PORT}/health`);
+            console.log('');
+            console.log('📡 API ENDPOINTS:');
+            console.log(`   Routes: http://${localIp}:${PORT}/api/routes`);
+            console.log(`   Stations: http://${localIp}:${PORT}/api/stations`);
+            console.log(`   Vehicles: http://${localIp}:${PORT}/api/vehicles`);
+            console.log('─────────────────────────────────────────────────\n');
+            console.log(`💡 TIP: Update Flutter app's localIpAddress to: ${localIp}`);
+            console.log('─────────────────────────────────────────────────\n');
         });
 
         // Handle graceful shutdown

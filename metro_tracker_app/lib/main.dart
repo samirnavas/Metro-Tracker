@@ -5,6 +5,7 @@ import 'core/constants/app_colors.dart';
 import 'features/metro_tracking/presentation/pages/root_screen.dart';
 import 'features/metro_tracking/presentation/bloc/vehicle_bloc.dart';
 import 'features/metro_tracking/presentation/bloc/vehicle_event.dart';
+import 'features/metro_tracking/presentation/bloc/route_bloc.dart';
 
 import 'injection_container.dart' as di;
 
@@ -23,6 +24,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (_) => di.sl<VehicleBloc>()..add(StartTracking()),
+        ),
+        BlocProvider(
+          create: (_) => di.sl<RouteBloc>(),
         ),
       ],
       child: MaterialApp(
