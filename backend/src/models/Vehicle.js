@@ -1,28 +1,66 @@
+const mongoose = require('mongoose');
 
-class Vehicle {
-  constructor(id, type, routeId, lat, lng, bearing = 0, speed = 0) {
-    this.id = id;
-    this.type = type; // 'BUS' or 'METRO'
-    this.routeId = routeId;
-    this.lat = lat;
-    this.lng = lng;
-    this.bearing = bearing;
-    this.speed = speed;
-    this.lastUpdate = Date.now();
+const vehicleSchema = new mongoose.Schema({
+  vehicleId: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true
+  },
+  type: {
+    type: String,
+    enum: ['METRO', 'BUS'],
+    required: true
+  },
+  route: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Route',
+    required: true
+  },
+  currentStation: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Station',
+    required: true
+  },
+  nextStation: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Station'
+  },
+  // Progress between current and next station (0.0 to 1.0)
+  progressToNextStation: {
+    type: Number,
+    default: 0,
+    min: 0,
+    max: 1
+  },
+  active: {
+    type: Boolean,
+    default: true
+  },
+  lastUpdate: {
+    type: Date,
+    default: Date.now
   }
+}, {
+  timestamps: true
+});
 
-  toJSON() {
-    return {
-      id: this.id,
-      type: this.type,
-      lat: this.lat,
-      lng: this.lng,
-      bearing: this.bearing,
-      speed: this.speed,
-      routeId: this.routeId,
-      timestamp: Math.floor(this.lastUpdate / 1000)
-    };
-  }
-}
+// Index for faster queries
+vehicleSchema.index({ vehicleId: 1 });
+vehicleSchema.index({ route: 1, active: 1 });
+vehicleSchema.index({ active: 1 });
 
-module.exports = Vehicle;
+// Method to convert to JSON for WebSocket transmission
+vehicleSchema.methods.toClientJSON = function () {
+  return {
+    id: this.vehicleId,
+    type: this.type,
+    routeId: this.route,
+    currentStationId: this.currentStation,
+    nextStationId: this.nextStation,
+    progress: this.progressToNextStation,
+    timestamp: Math.floor(this.lastUpdate.getTime() / 1000)
+  };
+};
+
+module.exports = mongoose.model('Vehicle', vehicleSchema);
