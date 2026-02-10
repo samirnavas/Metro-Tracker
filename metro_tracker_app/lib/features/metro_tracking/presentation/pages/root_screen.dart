@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
-import 'home_screen.dart';
+import 'home_screen_new.dart';
 import 'live_map_screen.dart';
 import 'profile_screen.dart';
 
