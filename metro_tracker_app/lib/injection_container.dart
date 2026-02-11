@@ -62,7 +62,7 @@ Future<void> init() async {
 
   const bool usePhysicalDevice = true; // Set to false if using Android Emulator
   const String localIpAddress =
-      '192.168.29.247'; // Replace with YOUR computer's IP address
+      '192.168.10.28'; // Your computer's actual IP address
 
   String wsUrlString = 'ws://localhost:8080';
   String httpUrlString = 'http://localhost:8080';
