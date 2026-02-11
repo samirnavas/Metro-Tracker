@@ -10,8 +10,7 @@ class Database {
             const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/metro-tracker';
 
             this.connection = await mongoose.connect(mongoURI, {
-                useNewUrlParser: true,
-                useUnifiedTopology: true
+
             });
 
             console.log('✓ MongoDB connected successfully');

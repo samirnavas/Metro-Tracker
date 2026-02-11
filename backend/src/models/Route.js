@@ -35,7 +35,7 @@ const routeSchema = new mongoose.Schema({
 });
 
 // Index for faster queries
-routeSchema.index({ code: 1 });
+
 routeSchema.index({ type: 1, active: 1 });
 
 module.exports = mongoose.model('Route', routeSchema);

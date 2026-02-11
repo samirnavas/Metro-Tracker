@@ -3,6 +3,8 @@ const database = require('../config/database');
 const Station = require('../models/Station');
 const Route = require('../models/Route');
 const Vehicle = require('../models/Vehicle');
+const Timetable = require('../models/Timetable');
+
 
 // Real Kochi Metro Stations (Line 1: Aluva to Thripunithura)
 const METRO_STATIONS = [
@@ -55,6 +57,7 @@ async function seedDatabase() {
         await Station.deleteMany({});
         await Route.deleteMany({});
         await Vehicle.deleteMany({});
+        await Timetable.deleteMany({});
         console.log('✓ Existing data cleared\n');
 
         // Create Metro Stations
@@ -138,6 +141,86 @@ async function seedDatabase() {
 
         console.log(`✓ Created ${4} vehicles\n`);
 
+        // Create Timetables
+        console.log('📅 Creating timetables...');
+
+        // Metro Line 1 Timetable (Weekday)
+        await Timetable.create({
+            route: metroRoute._id,
+            dayType: 'Weekday',
+            schedule: [
+                {
+                    timeRange: { start: '6:00 AM', end: '9:00 AM' },
+                    frequency: { minutes: 10, type: 'Peak' }
+                },
+                {
+                    timeRange: { start: '9:00 AM', end: '5:00 PM' },
+                    frequency: { minutes: 15, type: 'Off-Peak' }
+                },
+                {
+                    timeRange: { start: '5:00 PM', end: '8:00 PM' },
+                    frequency: { minutes: 10, type: 'Peak' }
+                },
+                {
+                    timeRange: { start: '8:00 PM', end: '10:00 PM' },
+                    frequency: { minutes: 20, type: 'Off-Peak' }
+                },
+                {
+                    timeRange: { start: '10:00 PM', end: '11:00 PM' },
+                    frequency: { minutes: 30, type: 'Night' }
+                }
+            ]
+        });
+
+        // Feeder Bus Route Timetable (Weekday)
+        await Timetable.create({
+            route: feederRoute._id,
+            dayType: 'Weekday',
+            schedule: [
+                {
+                    timeRange: { start: '6:00 AM', end: '9:00 AM' },
+                    frequency: { minutes: 10, type: 'Peak' }
+                },
+                {
+                    timeRange: { start: '9:00 AM', end: '5:00 PM' },
+                    frequency: { minutes: 20, type: 'Off-Peak' }
+                },
+                {
+                    timeRange: { start: '5:00 PM', end: '8:00 PM' },
+                    frequency: { minutes: 10, type: 'Peak' }
+                },
+                {
+                    timeRange: { start: '8:00 PM', end: '10:00 PM' },
+                    frequency: { minutes: 25, type: 'Off-Peak' }
+                }
+            ]
+        });
+
+        // Weekend timetables (less frequent)
+        await Timetable.create({
+            route: metroRoute._id,
+            dayType: 'Weekend',
+            schedule: [
+                {
+                    timeRange: { start: '7:00 AM', end: '11:00 PM' },
+                    frequency: { minutes: 20, type: 'Off-Peak' }
+                }
+            ]
+        });
+
+        await Timetable.create({
+            route: feederRoute._id,
+            dayType: 'Weekend',
+            schedule: [
+                {
+                    timeRange: { start: '7:00 AM', end: '10:00 PM' },
+                    frequency: { minutes: 30, type: 'Off-Peak' }
+                }
+            ]
+        });
+
+        console.log('✓ Created timetables for all routes\n');
+
         // Display summary
         console.log('📊 Seed Summary:');
         console.log('─────────────────────────────');
@@ -145,6 +228,7 @@ async function seedDatabase() {
         console.log(`Feeder Stations: ${feederStations.length}`);
         console.log(`Routes: 2 (1 Metro, 1 Bus)`);
         console.log(`Vehicles: 4 (2 Metro, 2 Bus)`);
+        console.log(`Timetables: 4 (2 Weekday, 2 Weekend)`);
         console.log('─────────────────────────────\n');
 
         console.log('✅ Database seeded successfully!');

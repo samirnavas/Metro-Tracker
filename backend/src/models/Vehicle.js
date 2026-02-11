@@ -46,7 +46,7 @@ const vehicleSchema = new mongoose.Schema({
 });
 
 // Index for faster queries
-vehicleSchema.index({ vehicleId: 1 });
+
 vehicleSchema.index({ route: 1, active: 1 });
 vehicleSchema.index({ active: 1 });
 

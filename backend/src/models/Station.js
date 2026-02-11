@@ -27,7 +27,7 @@ const stationSchema = new mongoose.Schema({
 });
 
 // Index for faster queries
-stationSchema.index({ code: 1 });
+
 stationSchema.index({ orderIndex: 1 });
 
 module.exports = mongoose.model('Station', stationSchema);
